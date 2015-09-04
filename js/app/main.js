@@ -34,7 +34,7 @@ RayPlot.prototype.draw = function(config) {
 	 * Plot is considered to be in 4th quadrant. with  (x,y) 0,0 at top left
 	 */
 	
-	paper.setViewBox(-20, 0, width, height, true)
+	paper.setViewBox(-50, 0, width, height, true)
 
 	var xAxis = drawLine(0, height/2 , width, height/2, true);	
 
@@ -52,15 +52,15 @@ RayPlot.prototype.draw = function(config) {
 	var f1AxisPos = chiefRay[2][0]
 	drawYAxis(f1AxisPos, 120, style.solidArrow,"F1")
 
-	// // Draw R'
-	// var r1AxisPos = rAxisPos - 320;
-	// drawYAxis(r1AxisPos, 300, style.dotted,"R`")
-
 	
 	// Draw f2
 	//var f2AxisPos = r1AxisPos - 320;
 	var f2AxisPos = chiefRay[3][0]
 	drawYAxis(f2AxisPos, 300, style.solidArrow,"F2")
+
+	// Draw S`h
+	var shAxisPos = chiefRay[4][0];
+	drawYAxis(shAxisPos, 300, style.circles,"S`h")
 
 	// Draw R''
 	//var r2AxisPos = f2AxisPos - 320;
@@ -114,6 +114,11 @@ var style = {
 	dotted:{
 		'stroke': 'black', 
 		'stroke-dasharray': ["--"] 
+	},
+	circles:{
+		'stroke': 'rgb(73, 134, 231)', 
+		'stroke-dasharray': [". "],
+		'stroke-width': 3 
 	},
 	solidGrey:{
 		'stroke': '#555'
