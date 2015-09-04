@@ -16,5 +16,13 @@ angular.module('myApp.controllers', []).
   			dk3 : 100,  
   			fk4 : 10
   		}
+  	
+  	var rayPlot = new RayPlot($scope.config);
+
+  	$scope.$watch('config',function (newConfig) {
+  		rayPlot.clear();
+  		rayPlot.draw($scope.config);
+
+  	},true);
 
   }]);

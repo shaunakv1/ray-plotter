@@ -367,6 +367,14 @@ angular.module('myApp.controllers', []).
   			dk3 : 100,  
   			fk4 : 10
   		}
+  	
+  	var rayPlot = new RayPlot($scope.config);
+
+  	$scope.$watch('config',function (newConfig) {
+  		rayPlot.clear();
+  		rayPlot.draw($scope.config);
+
+  	},true);
 
   }]);;
 'use strict';
@@ -410,21 +418,30 @@ var config = {
 		dk3 : 100,  
 		fk4 : 10
 	}
-
-	var r = new RayPlot(config);
 });
 
 function RayPlot(config) {
+	this.w = $('#plot').width();
+	this.h = 500;
+	this.paper = Raphael("plot", this.w, this.h);	
+	//this.draw(config);
+}
+
+RayPlot.prototype.clear = function() {
+		this.paper.clear();
+};
+
+RayPlot.prototype.draw = function(config) {
+	console.log('drawing');
+	var width = this.w;
+	var height = this.h;
+	var paper = this.paper;
+
 	var chiefRay = calculatePlot(config, 2.2);
 
 	/**
 	 * Plot is considered to be in 4th quadrant. with  (x,y) 0,0 at top left
 	 */
-	
-	var width = $('#plot').width();
-	var height = 500;
-	
-	var paper = Raphael("plot", width, height);
 	
 	paper.setViewBox(-20, 0, width, height, true)
 
@@ -500,8 +517,7 @@ function RayPlot(config) {
 			if(style) plot.attr(style);
 		}
 	}
-}
-
+};
 
 var style = {
 	dotted:{
