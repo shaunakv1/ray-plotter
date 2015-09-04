@@ -1,0 +1,28 @@
+todo.todo
+
+1. Images compression and optimization
+
+2. SVG fonts compilation 
+
+3. Add README for building workflow
+
+4 Grunt task to create a new zip of the seed template (so it can be used with nettuts pull to create new blank projects)
+
+Done
+1. Add underscore js
+2. Add docs docs/index.html and project.json
+3. Add browser mapping for concatenated js file
+4. All libraries have been updated
+5. Added Static Server to sere webpage
+6. All build file names now generated from the packege.json (so when new seed is downloaded, just doing grunt sets it up)
+7. Pointing to latest center Angularitics
+8. Enable JavaScript dependency declearation using URL in the .json file. Currently only relative paths supported
+    when a dependency is decleared using URL , a grunt task should download it and add it to the local 'lib' directory
+9. Added a static server task that opens up the project in browser and also supports Live Reload without requiring anything in the html file
+10. Added task to build a 'dist' folder to write only required files of the projects for project
+
+
+
+
+
+
