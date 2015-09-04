@@ -15,61 +15,58 @@ var config = {
 });
 
 function RayPlot(config) {
-	var chiefRay = calculatePlot(0,4,17,100,120,120,100,10)
+	var chiefRay = calculatePlot(config, 2.2);
 
 	/**
 	 * Plot is considered to be in 4th quadrant. with  (x,y) 0,0 at top left
 	 */
 	
-	var width = 1000;
+	var width = $('#plot').width();
 	var height = 500;
 	
 	var paper = Raphael("plot", width, height);
-
-	var border = paper.rect(0,0,width,height);
+	
+	paper.setViewBox(-20, 0, width, height, true)
 
 	var xAxis = drawLine(0, height/2 , width, height/2, true);	
 
 	// Draw R
-	var rAxisPos = (width - 20)
-	//drawLine(rAxisPos, 0, rAxisPos, height);
-	drawYAxis(rAxisPos, 300, style.dotted)
+	var rAxisPos = chiefRay[0][0]
+	drawYAxis(rAxisPos, 300, style.dotted,'R')
 
 	// Draw feye
-	var feAxisPos = 900; // chiefRay[1][0]
-	drawYAxis(feAxisPos, 100, style.solidArrow)
+	//var feAxisPos = 900;
+	var feAxisPos = chiefRay[1][0];
+	drawYAxis(feAxisPos, 100, style.solidArrow,"F'eye")
 
 	// Draw f1
-	var f1AxisPos = 800; // chiefRay[2][0]
-	drawYAxis(f1AxisPos, 120, style.solidArrow)
+	//var f1AxisPos = 800;
+	var f1AxisPos = chiefRay[2][0]
+	drawYAxis(f1AxisPos, 120, style.solidArrow,"F1")
 
 	// // Draw R'
 	// var r1AxisPos = rAxisPos - 320;
-	// drawYAxis(r1AxisPos, 300, style.dotted)
+	// drawYAxis(r1AxisPos, 300, style.dotted,"R`")
 
 	
 	// Draw f2
-	var f2AxisPos = r1AxisPos - 320; // chiefRay[3][0]
-	drawYAxis(f2AxisPos, 300, style.solidArrow)
+	//var f2AxisPos = r1AxisPos - 320;
+	var f2AxisPos = chiefRay[3][0]
+	drawYAxis(f2AxisPos, 300, style.solidArrow,"F2")
 
 	// Draw R''
-	var r2AxisPos = f2AxisPos - 320; // chiefRay[5][0]
-	drawYAxis(r2AxisPos, 300, style.dotted)
+	//var r2AxisPos = f2AxisPos - 320;
+	var r2AxisPos = chiefRay[5][0]
+	drawYAxis(r2AxisPos, 300, style.dotted,"R``")
 
-		
-	// drawPath([ 
-	// 		[960, 250],
-	// 		[feAxisPos, 220],
-	// 		[f1AxisPos, 210],
-	// 		[f2AxisPos, 330],
-	// 		[r2AxisPos, 380]
-	// ],style.solidRed);
-	// 
 	
-	drawPath(calculatePlot(0,4,17,100,120,120,100,10), style.solidRed);
+	drawPath(chiefRay, style.solidRed);
 
-	function drawYAxis(xPos, height,style){
-		drawLine (xPos, (xAxis.getBBox().y - (height/2) ) , xPos , (xAxis.getBBox().y + (height/2) ) , style);			
+	function drawYAxis(xPos, height,style,label){
+		drawLine (xPos, (xAxis.getBBox().y - (height/2) ) , xPos , (xAxis.getBBox().y + (height/2) ) , style);	
+		
+		if(label) 
+			paper.text(xPos,(xAxis.getBBox().y - (height/2) - 20 ), label);		
 	}
 
 	function drawLine (x1,y1,x2,y2,style) {
@@ -111,6 +108,9 @@ var style = {
 		'stroke': 'black', 
 		'stroke-dasharray': ["--"] 
 	},
+	solidGrey:{
+		'stroke': '#555'
+	},
 	solidRed:{
 		'stroke': 'red'
 	},
@@ -121,8 +121,16 @@ var style = {
 }
 
 
-function calculatePlot (zk,yk1,fk1,dk1,fk2,fk3,dk3,fk4) {
-	
+function calculatePlot (config, magnification) {
+	var zk =  config.zk;
+	var yk1 = config.yk1;
+	var fk1 = config.fk1;
+	var dk1 = config.dk1;
+	var fk2 = config.fk2;
+	var fk3 = config.fk3;
+	var dk3 = config.dk3;
+	var fk4 = config.fk4;
+
 	//Ideal ray from retinal plane
 	var alpha_ideal1 = yk1/(fk1)-yk1/fk1
 	var y_ideal2 = (yk1/(fk1)-yk1/fk1)*dk1 + yk1
@@ -149,6 +157,22 @@ function calculatePlot (zk,yk1,fk1,dk1,fk2,fk3,dk3,fk4) {
 	var x3 = x2+fk2+fk3;
 	var x4 = x3+dk3;
 	var x5 = x4+fk4	
+
+	var mag = 1;	
+	if(magnification) mag = magnification;
+
+	x0 *= mag;
+	y0 *= mag;
+	x1 *= mag;
+	y1 *= mag;
+	x2 *= mag;
+	y2 *= mag;
+	x3 *= mag;
+	y3 *= mag;
+	x4 *= mag;
+	y4 *= mag;
+	x5 *= mag;
+	y5 *= mag;
 
 	return [ [x0,y0], [x1,y1], [x2,y2], [x3,y3], [x4,y4], [x5,y5] ];
 }
