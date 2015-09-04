@@ -81,7 +81,7 @@
 
         <!-- Application CSS file -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/optical-ray-plotter.min.css?6981fbc844eb89ae">
+        <link rel="stylesheet" href="css/optical-ray-plotter.min.css?babc4451ef2255ea">
 
     </head>
     <body>
@@ -151,12 +151,24 @@
                                 <input ng-model='config.fk4' placeholder="fk4" class="form-control input" type="number" min="0" step="1"/>
                             </div>
                           </div>
-                        </div>
-                    </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                    
+                    <div class="row inputs-row text">
+                        <div class="col-md-2 col-md-offset-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">magnification</span>
+                                    <input ng-model='config.magnification' placeholder="magnification" class="form-control magnification" type="number" min="0" step="0.01"/>
+                                </div>
+                          </div>
+                        </div><!-- end col -->
+                    </div> <!-- end row -->
+
                 </form>
         </div>
         <!-- DO NOT INCLUDE SCRIPTS HERE, USE GRUNT. README! -->
-        <script src="js/optical-ray-plotter.js?7fe2bf04017bb0a6"></script>
+        <script src="js/optical-ray-plotter.js?97678f149c0361b2"></script>
 
         <!-- HTML5 Polyfil to help screen readers with HTML5 elements https://github.com/yatil/accessifyhtml5.js -->
         <script>AccessifyHTML5();</script>

@@ -365,7 +365,8 @@ angular.module('myApp.controllers', []).
   			fk2 : 120,  
   			fk3 : 120,  
   			dk3 : 100,  
-  			fk4 : 10
+  			fk4 : 10,
+  			magnification: 2.2
   		}
   	
   	var rayPlot = new RayPlot($scope.config);
@@ -423,8 +424,7 @@ var config = {
 function RayPlot(config) {
 	this.w = $('#plot').width();
 	this.h = 500;
-	this.paper = Raphael("plot", this.w, this.h);	
-	//this.draw(config);
+	this.paper = Raphael("plot", this.w, this.h);
 }
 
 RayPlot.prototype.clear = function() {
@@ -437,7 +437,7 @@ RayPlot.prototype.draw = function(config) {
 	var height = this.h;
 	var paper = this.paper;
 
-	var chiefRay = calculatePlot(config, 2.2);
+	var chiefRay = calculatePlot(config, config.magnification);
 
 	/**
 	 * Plot is considered to be in 4th quadrant. with  (x,y) 0,0 at top left

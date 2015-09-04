@@ -14,7 +14,8 @@ angular.module('myApp.controllers', []).
   			fk2 : 120,  
   			fk3 : 120,  
   			dk3 : 100,  
-  			fk4 : 10
+  			fk4 : 10,
+  			magnification: 2.2
   		}
   	
   	var rayPlot = new RayPlot($scope.config);
